@@ -1,0 +1,85 @@
+<div class="flex flex-col items-center pt-20 pb-4">
+  <mat-card class="w-fit max-w-[90%] h-fit flex items-center">
+    <mat-card-header class="text-3xl font-bold">
+      <mat-card-title class="pb-10">Ergebnisseite für den Course: {{ assessment.course }} von {{ assessment.lecturer }}
+        in {{ assessment.semester?.season }}semester {{ assessment.semester?.year }}
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="flex flex-col justify-center">
+      <div *ngIf="assessmentResult.length != 0">
+        <p class="text-center text-2xl pb-10">Gesamtnote: {{ grade }}</p>
+        <div class="flex flex-row flex-wrap justify-center">
+          <app-bar-graph-multiple-choice [averageValue]="averageValues[0]" [fifthLabel]="star.repeat(5)"
+                                         [firstLabel]="star"
+                                         [fourthLabel]="star.repeat(4)"
+                                         [ratingCountData]="starCount[0]" [secondLabel]="star.repeat(2)"
+                                         [thirdLabel]="star.repeat(3)"
+                                         barGraphTitle="Vorlesung"></app-bar-graph-multiple-choice>
+          <app-bar-graph-multiple-choice [averageValue]="averageValues[1]" [fifthLabel]="star.repeat(5)"
+                                         [firstLabel]="star"
+                                         [fourthLabel]="star.repeat(4)"
+                                         [ratingCountData]="starCount[1]" [secondLabel]="star.repeat(2)"
+                                         [thirdLabel]="star.repeat(3)"
+                                         barGraphTitle="Übung"></app-bar-graph-multiple-choice>
+          <app-bar-graph-multiple-choice [averageValue]="averageValues[2]" [fifthLabel]="star.repeat(5)"
+                                         [firstLabel]="star"
+                                         [fourthLabel]="star.repeat(4)"
+                                         [ratingCountData]="starCount[2]" [secondLabel]="star.repeat(2)"
+                                         [thirdLabel]="star.repeat(3)"
+                                         barGraphTitle="Unterlagen"></app-bar-graph-multiple-choice>
+          <app-bar-graph-multiple-choice [averageValue]="averageValues[3]" [fifthLabel]="star.repeat(5)"
+                                         [firstLabel]="star"
+                                         [fourthLabel]="star.repeat(4)"
+                                         [ratingCountData]="starCount[3]" [secondLabel]="star.repeat(2)"
+                                         [thirdLabel]="star.repeat(3)"
+                                         barGraphTitle="Prüfung"></app-bar-graph-multiple-choice>
+          <app-bar-graph-multiple-choice [averageValue]="averageValues[4]" [barGraphTitle]="barGraphTitle1"
+                                         [fifthLabel]="zeitaufwandNiveauPunkt5"
+                                         [firstLabel]="zeitaufwandNiveauPunkt1"
+                                         [fourthLabel]="zeitaufwandNiveauPunkt4"
+                                         [ratingCountData]="ratingCounts[0]" [secondLabel]="zeitaufwandNiveauPunkt2"
+                                         [thirdLabel]="zeitaufwandNiveauStoffmengePunkt3"
+          ></app-bar-graph-multiple-choice>
+          <app-bar-graph-multiple-choice [averageValue]="averageValues[5]" [barGraphTitle]="barGraphTitle2"
+                                         [fifthLabel]="inhaltPunkt5" [firstLabel]="inhaltPunkt1"
+                                         [fourthLabel]="inhaltPunkt4" [ratingCountData]="ratingCounts[1]"
+                                         [secondLabel]="inhaltPunkt2"
+                                         [thirdLabel]="inhaltRelevanzPunkt3"></app-bar-graph-multiple-choice>
+          <app-bar-graph-multiple-choice [averageValue]="averageValues[6]" [barGraphTitle]="barGraphTitle3"
+                                         [fifthLabel]="stoffmengePunkt5"
+                                         [firstLabel]="stoffmengePunkt1"
+                                         [fourthLabel]="stoffmengePunkt4"
+                                         [ratingCountData]="ratingCounts[2]" [secondLabel]="stoffmengePunkt2"
+                                         [thirdLabel]="zeitaufwandNiveauStoffmengePunkt3"></app-bar-graph-multiple-choice>
+          <app-bar-graph-multiple-choice [averageValue]="averageValues[7]" [barGraphTitle]="barGraphTitle4"
+                                         [fifthLabel]="zeitaufwandNiveauPunkt5"
+                                         [firstLabel]="zeitaufwandNiveauPunkt1"
+                                         [fourthLabel]="zeitaufwandNiveauPunkt4"
+                                         [ratingCountData]="ratingCounts[3]" [secondLabel]="zeitaufwandNiveauPunkt2"
+                                         [thirdLabel]="zeitaufwandNiveauStoffmengePunkt3"></app-bar-graph-multiple-choice>
+          <app-bar-graph-multiple-choice [averageValue]="averageValues[8]" [barGraphTitle]="barGraphTitle5"
+                                         [fifthLabel]="relevanzPunkt5"
+                                         [firstLabel]="relevanzPunkt1" [fourthLabel]="relevanzPunkt4"
+                                         [ratingCountData]="ratingCounts[4]" [secondLabel]="relevanzPunkt2"
+                                         [thirdLabel]="inhaltRelevanzPunkt3"></app-bar-graph-multiple-choice>
+        </div>
+      </div>
+
+      <div *ngIf="assessmentResult.length == 0">
+        <p>Keine Bewertungen vorhanden!</p>
+      </div>
+
+      <div class="flex flex-col items-center space-y-4 py-10">
+        <p *ngIf="commentsPresent() && requestService.getRoles()?.roles === 'PROF'">Über folgenden Link gelangen Sie zu
+          den
+          <button (click)="navigateToComments()" class="text-blue-400 visited:text-purple-600 hover:underline">
+            Kommentaren
+          </button>
+        </p>
+        <button (click)="backClicked()" class="!w-fit" color="primary" extended mat-fab>Zurück</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+

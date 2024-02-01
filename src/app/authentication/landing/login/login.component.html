@@ -1,0 +1,50 @@
+<mat-card class="max-w-xl min-w-fit h-fit">
+  <mat-card-header class="mb-2">
+    <mat-card-title>Für Anwendung anmelden</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form (ngSubmit)="login()">
+      <div class="mx-4">
+        <mat-form-field class="w-full">
+          <mat-label>Email</mat-label>
+          <input [formControl]="loginForm.controls.emailFormControl" id="email" matInput name="email" required
+                 type="email">
+          <mat-error>Gib bitte eine valide TH-Email-Adresse an</mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-full mb-2">
+          <mat-label>Passwort</mat-label>
+          <input [formControl]="loginForm.controls.passwordFormControl" [type]="hidePassword ? 'password' : 'text'" id="password"
+                 matInput
+                 name="password" required>
+          <button (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hidePassword" mat-icon-button matSuffix type="button">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error>Gib bitte das Passwort an</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex justify-center">
+        <mat-error *ngIf="this.errorMessage.length > 0" class="pb-2">{{ errorMessage }}</mat-error>
+      </div>
+      <div class="flex justify-between items-center">
+        <a class="italic text-gray-500 hover:text-black dark:text-gray-300 dark:hover:text-white w-fit"
+           routerLink="/contact">Zum
+          Kontakt-Formular</a>
+        <a class="italic text-gray-500 hover:text-black dark:text-gray-300 dark:hover:text-white w-fit"
+           routerLink="/resetPassword">Passwort
+          vergessen?</a>
+      </div>
+      <div class="flex justify-center mt-4">
+        <div *ngIf="this.loading">
+          <mat-spinner [diameter]="48"></mat-spinner>
+        </div>
+        <div *ngIf="!this.loading" class="flex flex-col items-center w-full">
+          <button [disabled]="loginForm.invalid || this.loading" color="primary" extended mat-fab type="submit">
+            Anmelden
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+

@@ -1,0 +1,10 @@
+<div class="h-screen">
+  <app-navbar class="fixed top-0 w-full z-40"></app-navbar>
+  <div class="fixed top-16 right-0 z-50">
+    <div *ngFor="let notification of notificationService.notifications()" class="m-4">
+      <app-notification [iconName]=notification.iconName [message]=notification.message
+                        [notificationId]=notification.id></app-notification>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

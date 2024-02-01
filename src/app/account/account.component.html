@@ -1,0 +1,86 @@
+<div class="h-full flex flex-col justify-center items-center">
+  <mat-card class="w-[30rem] h-fit mb-4">
+    <mat-card-header class="mb-2 font-bold">
+      <mat-card-title>Account</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="changePassword()">
+        <div class="mx-4">
+          <mat-form-field class="w-full">
+            <mat-label>Altes Passwort</mat-label>
+            <input [formControl]="passwordForm.controls.oldPasswordFormControl" [type]="hideOldPassword ? 'password' : 'text'" id="oldPassword"
+                   matInput
+                   name="oldPassword" required>
+            <button (click)="hideOldPassword = !hideOldPassword" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hideOldPassword" mat-icon-button matSuffix type="button">
+              <mat-icon>{{ hideOldPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error>Gib bitte ein Passwort an</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Neues Passwort</mat-label>
+            <input [formControl]="passwordForm.controls.passwordFormControl" [type]="hidePassword ? 'password' : 'text'" id="newPassword"
+                   matInput
+                   name="newPasssword" required>
+            <button (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hidePassword" mat-icon-button matSuffix type="button">
+              <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error>Gib bitte ein Passwort an</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Neues Passwort wiederholen</mat-label>
+            <input [formControl]="passwordForm.controls.repeatPasswordFormControl" [type]="hideRepeatedPassword ? 'password' : 'text'"
+                   id="repeatPassword"
+                   matInput
+                   name="repeatPassword" required>
+            <button (click)="hideRepeatedPassword = !hideRepeatedPassword" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hideRepeatedPassword" mat-icon-button matSuffix type="button">
+              <mat-icon>{{ hideRepeatedPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error>Bitte wiederhole das Passwort!</mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-error *ngIf="passwordForm.errors?.['passwordMatchError'] && passwordForm.controls.repeatPasswordFormControl.getRawValue()"
+                   class="mb-4">
+          Passwörter stimmen nicht überein
+        </mat-error>
+
+        <div class="flex justify-center">
+          <div *ngIf="this.loading">
+            <mat-spinner [diameter]="48"></mat-spinner>
+          </div>
+          <div *ngIf="!this.loading">
+            <button [disabled]="passwordForm.invalid || this.loading" color="primary" extended mat-fab type="submit">
+              Passwort ändern
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="w-[30rem] h-fit mb-4">
+    <mat-card-header class="font-bold">
+      <mat-card-title>Darkmode</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-slide-toggle [formControl]="darkModeControl" color="primary">Schließe dich der dunklen Seite der Macht an
+      </mat-slide-toggle>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="w-[30rem]">
+    <mat-card-header class="font-bold">
+      <mat-card-title>Kontakt</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Haben Sie ein Problem, eine Frage oder ein Anliegen? Wenden sie sich einfach an uns. Klicken Sie auf diesen
+        Knopf um zu unserem Kontaktformular zu kommen:</p>
+      <div class="flex justify-center">
+        <button color="primary" extended mat-fab routerLink="/contact">Kontakt</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

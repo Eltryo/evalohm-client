@@ -1,0 +1,41 @@
+<h1 *ngIf="data.myAssessments[0][0].course.length > 30"
+    [matTooltip]="data.myAssessments[0][0].course"
+    class="font-bold text-5xl text-center mt-2 px-2">{{ data.myAssessments[0][0].course.substring(0, 28).concat("...") }}</h1>
+<h1 *ngIf="data.myAssessments[0][0].course.length <= 30"
+    class="font-bold text-5xl text-center mt-2 px-2">{{ data.myAssessments[0][0].course }}</h1>
+<div class="flex flex-col items-center p-2 !text-black dark:!text-white" mat-dialog-content>
+  <p *ngIf="gradeForCourse != 6" class="text-center pb-4">Durchschnittsnote: {{ gradeForCourse }}</p>
+  <div *ngFor="let assessmentsInSameSemester of data.myAssessments; let i = index">
+    <p>{{ assessmentsInSameSemester[0].semester.season }}semester {{ assessmentsInSameSemester[0].semester.year }}</p>
+    <mat-divider></mat-divider>
+    <div class="flex flex-row flex-wrap justify-center">
+      <mat-card *ngFor="let assessment of data.myAssessments[i]"
+                class="w-64 h-40 m-2 flex flex-col justify-evenly items-center dark:!bg-[#505050] text-center"
+                style="background-color: #e5e5e5">
+        <mat-card-header class="mb-2 text-2xl font-bold">
+          <mat-card-title *ngIf="assessment.lecturer.length > 12"
+                          [matTooltip]="assessment.lecturer">{{ assessment.lecturer.substring(0, 10).concat("...") }}
+          </mat-card-title>
+          <mat-card-title *ngIf="assessment.lecturer.length <= 12">{{ assessment.lecturer }}</mat-card-title>
+          <mat-card-title>{{ assessment.semester.season }} {{ assessment.semester.year }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <button (click)="openEvaluation(assessment.id)"
+                  *ngIf="!(assessment.expired || assessment.closed)"
+                  [disabled]="IdsOfSubmittedAssessments.includes(assessment.id)" color="primary" extended
+                  mat-dialog-close
+                  mat-fab>
+            <p *ngIf="!IdsOfSubmittedAssessments.includes(assessment.id)">Zur Bewertung</p>
+            <p *ngIf="IdsOfSubmittedAssessments.includes(assessment.id)">Bereits bewertet</p>
+          </button>
+          <button *ngIf="assessment.expired || assessment.closed" color="primary" extended mat-dialog-close mat-fab
+                  routerLink="/assessments/{{assessment.id}}/result">Zu den Ergebnissen
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<mat-dialog-actions align="center">
+  <button class="mb-2" color="primary" extended mat-dialog-close mat-fab>Schließen</button>
+</mat-dialog-actions>

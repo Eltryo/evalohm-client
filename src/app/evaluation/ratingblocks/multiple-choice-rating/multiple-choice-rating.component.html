@@ -1,0 +1,12 @@
+<div class="flex justify-center w-[50rem]">
+  <div class="flex flex-col items-center w-11/12 p-4">
+    <span class="font-bold">{{ this.ratingName }}</span>
+    <mat-radio-group class="grid grid-cols-5 w-full pt-2">
+      <div *ngFor="let choice of choices; let value = index" class="flex flex-col items-center">
+        <label class="flex flex-col items-center">
+          <mat-radio-button (click)="Rating(value + 1)" value=none></mat-radio-button>
+          {{ choice }}</label>
+      </div>
+    </mat-radio-group>
+  </div>
+</div>

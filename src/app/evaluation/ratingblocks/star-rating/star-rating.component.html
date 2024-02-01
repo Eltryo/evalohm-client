@@ -1,0 +1,15 @@
+<div class="flex justify-center w-[30rem]">
+  <div class="flex justify-between w-11/12 p-4">
+    <span class="font-bold">{{ this.ratingName }}*</span>
+    <div>
+      <mat-icon (click)="Rating(index)"
+                (mouseenter)="HandleMouseEnter(index)"
+                (mouseleave)="HandleMouseLeave()"
+                *ngFor="let icon of maxRatingArr; let index = index"
+                [ngClass]="{checked:SelectedStar>index}"
+                class="cursor-pointer">
+        star
+      </mat-icon>
+    </div>
+  </div>
+</div>

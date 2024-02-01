@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+  <a routerLink="/home">Kursbewertungs-Plattform</a>
+  <span class="example-spacer"></span>
+  <button *ngIf="isAuthenticated() && isProf()" mat-icon-button routerLink="/assessments">
+    <mat-icon>assessment</mat-icon>
+  </button>
+  <button *ngIf="isAuthenticated()" mat-icon-button routerLink="/account">
+    <mat-icon>person</mat-icon>
+  </button>
+  <button (click)="this.logout()" *ngIf="isAuthenticated()" mat-icon-button>
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>

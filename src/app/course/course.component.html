@@ -1,0 +1,24 @@
+<div class="pt-20 mb-3">
+  <h1 class="font-bold text-5xl">Kursauswahl</h1>
+  <p class="custom-font-small">Wähle den Course für den du dich interessierst</p>
+</div>
+<div class="flex justify-center">
+  <div class="flex flex-wrap justify-center items-center w-11/12" id="kursauswahl">
+    <div *ngFor="let course of courses">
+      <mat-card class="flex flex-col overflow-hidden justify-evenly items-center w-64 h-40 m-4">
+        <mat-card-header class="mb-2 text-2xl font-bold">
+          <mat-card-title *ngIf="course.courseName.length > 12"
+                          [matTooltip]="course.courseName">{{ course.courseName.substring(0, 10).concat("...") }}
+          </mat-card-title>
+          <mat-card-title *ngIf="course.courseName.length <= 12">{{ course.courseName }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="flex justify-center">
+            <app-dialog [myAssessments]="filter(course)">
+            </app-dialog>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

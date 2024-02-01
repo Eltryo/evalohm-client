@@ -1,0 +1,51 @@
+<div class="pt-20 mb-3 text-center">
+  <h1 class="font-bold text-5xl">Bewertungen</h1>
+  <p class="custom-font-small">Hier finden sie alle Bewertungen, die von Ihnen eingestellt wurden</p>
+</div>
+<div class="flex justify-center">
+  <div class="flex flex-wrap justify-center items-center w-11/12" id="kursauswahl">
+    <div *ngFor="let assessment of myAssessments">
+      <mat-card class="flex flex-col overflow justify-center items-center w-64 h-64 m-4">
+        <mat-card-header class="mb-2 text-2xl font-bold">
+          <mat-card-title *ngIf="assessment.course.length > 12"
+                          [matTooltip]="assessment.course">{{ assessment.course.substring(0, 10).concat("...") }}
+          </mat-card-title>
+          <mat-card-title *ngIf="assessment.course.length <= 12">{{ assessment.course }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="flex justify-between">
+            <strong>Semester:</strong>{{ assessment.semester.season }} {{ assessment.semester.year }}</p>
+          <p class="flex justify-between">
+            <strong>Dozent: </strong>
+            <span *ngIf="assessment.lecturer.length > 12"
+                  [matTooltip]="assessment.lecturer">{{ assessment.lecturer.substring(0, 10).concat("...") }}</span>
+            <span *ngIf="assessment.lecturer.length <= 12">{{ assessment.lecturer }}</span>
+          </p>
+          <p class="flex justify-between"><strong>Erstellt am: </strong>{{ assessment.creationDate | date:'dd. MMM y' }}
+          </p>
+          <p class="flex justify-between"><strong>Endet am: </strong>{{ assessment.deadline | date:'dd. MMM y' }}</p>
+          <p class="flex justify-between"><strong>Review Code: </strong>{{ assessment.reviewCode }}</p>
+          <div class="flex justify-center mt-2">
+            <button *ngIf="!(assessment.expired || assessment.closed)" color="primary" extended mat-fab
+                    routerLink="{{assessment.id}}/edit">Bearbeiten
+            </button>
+            <button *ngIf="assessment.expired || assessment.closed" color="primary" extended mat-fab
+                    routerLink="{{assessment.id}}/result">Zu den Ergebnissen
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <mat-card class="flex flex-col justify-center items-center w-64 h-64 m-4">
+      <mat-card-header class="mb-2 text-2xl font-bold">
+        <mat-card-title>Neue Bewertung</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="text-center">Hier können Sie eine neue Bewertung für Ihre Studenten einstellen</p>
+        <div class="flex justify-center mt-2">
+          <button color="primary" extended mat-fab routerLink="create">Erstellen</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

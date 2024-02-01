@@ -1,0 +1,37 @@
+<div class="h-full flex flex-col justify-center items-center">
+  <mat-card class="w-[30rem] h-fit flex items-center">
+    <mat-card-header class="text-3xl font-bold mb-4">
+      <mat-card-title>Bewertungsphase starten</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()" [formGroup]="form" class="assessment-form">
+        <mat-form-field class="w-full">
+          <mat-label>Course</mat-label>
+          <input formControlName="course" id="kurs" matInput placeholder="Kursname">
+          <mat-error>Der Kursname wird benötigt</mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label>Dozent</mat-label>
+          <input formControlName="lecturer" id="dozent" matInput placeholder="Name">
+          <mat-error>Der Name des Dozenten wird benötigt</mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label>Enddatum</mat-label>
+          <input [matDatepicker]="picker" [max]="maxDate" [min]="minDate"
+                 formControlName="deadline" matInput
+                 placeholder="Datum" readonly="true">
+          <mat-datepicker-toggle [for]="picker" matIconSuffix></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <div class="flex justify-center">
+          <div *ngIf="this.loading">
+            <mat-spinner [diameter]="48"></mat-spinner>
+          </div>
+          <div *ngIf="!this.loading" class="flex flex-col items-center w-full">
+            <button [disabled]="form.invalid || this.loading" color="primary" extended mat-fab>Erstellen</button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

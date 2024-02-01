@@ -1,0 +1,51 @@
+<div class="flex flex-col items-center py-20">
+  <mat-card class="w-fit h-fit flex items-center">
+    <mat-card-header class="text-3xl font-bold">
+      <mat-card-title>Course bewerten</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="flex flex-col items-center my-4">
+        <mat-form-field class="w-[30rem]" hintLabel="Frage den Dozenten für den 8-stelligen Review-Code">
+          <mat-label>Review-Code</mat-label>
+          <input [formControl]="reviewCodeFormControl" id="reviewCode" matInput maxlength="8" minlength="8"
+                 name="reviewCode" required>
+          <mat-hint align="end">{{ reviewCodeFormControl.value?.length }}/8</mat-hint>
+          <mat-error>Gib den Review-Code dieser Lehrveranstaltung an: {{ reviewCodeFormControl.value?.length }}/8
+            Zeichen
+          </mat-error>
+        </mat-form-field>
+        <app-ratingblock [ratingName]="'Vorlesungen'"></app-ratingblock>
+        <app-ratingblock [ratingName]="'Übungen'"></app-ratingblock>
+        <app-ratingblock [ratingName]="'Unterlagen'"></app-ratingblock>
+        <app-ratingblock [ratingName]="'Prüfung'"></app-ratingblock>
+        <app-multiple-choice-rating [choices]="['sehr niedrig', 'eher niedrig', 'angemessen', 'eher hoch', 'sehr hoch']"
+                                    [ratingName]="'Zeitaufwand'"></app-multiple-choice-rating>
+        <app-multiple-choice-rating
+          [choices]="['uninteressant', 'eher uninteressant', 'neutral', 'eher interessant', 'interessant']"
+          [ratingName]="'Inhalt'"></app-multiple-choice-rating>
+        <app-multiple-choice-rating [choices]="['sehr wenig', 'eher wenig', 'angemessen', 'eher viel', 'sehr viel']"
+                                    [ratingName]="'Stoffmenge'"></app-multiple-choice-rating>
+        <app-multiple-choice-rating [choices]="['sehr niedrig', 'eher niedrig', 'angemessen', 'eher hoch', 'sehr hoch']"
+                                    [ratingName]="'Niveau'"></app-multiple-choice-rating>
+        <app-multiple-choice-rating
+          [choices]="['irrelevant', 'eher irrelevant', 'neutral', 'eher relevant', 'relevant']"
+          [ratingName]="'Relevanz'"></app-multiple-choice-rating>
+        <mat-form-field class="w-10/12 mt-10">
+          <mat-label>Ich möchte dem Dozenten noch folgendes mitteilen:</mat-label>
+          <textarea [formControl]="bemerkungFormControl" id="bemerkung" matInput name="bemerkung"></textarea>
+        </mat-form-field>
+      </form>
+      <div class="flex justify-evenly w-full pb-4">
+        <button color="primary" extended mat-fab routerLink="/">Zurück</button>
+        <div *ngIf="this.loading">
+          <mat-spinner [diameter]="48"></mat-spinner>
+        </div>
+        <div *ngIf="!this.loading">
+          <button (click)="Submit()" [disabled]="ratingIsInvalid() || this.loading" color="primary" extended mat-fab>
+            Absenden
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

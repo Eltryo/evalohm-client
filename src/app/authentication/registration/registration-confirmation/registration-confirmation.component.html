@@ -1,0 +1,33 @@
+<div class="h-screen flex flex-col justify-center items-center">
+  <h1 class="text-2xl mb-2">Account freischalten:</h1>
+  <p class="w-5/6 max-w-2xl text-center mb-4">Ihre Registrierung war erfolgreich. Wir haben ihnen eine Email mit einem
+    Bestätigungs-Code geschickt. Geben Sie diesen Code in das untere Feld ein, um ihren Account freizuschalten.</p>
+  <form (ngSubmit)="unlock()" class="w-96 mb-16">
+    <mat-form-field class="w-full">
+      <mat-label>Bestätigungs-Code</mat-label>
+      <input [formControl]="unlockForm.controls.codeFormControl" id="verificationCode" matInput name="verificationCode"
+             required>
+      <mat-error class="text-center">Gib bitte den Code ein!</mat-error>
+    </mat-form-field>
+    <div class="flex justify-center">
+      <div *ngIf="this.loading">
+        <mat-spinner [diameter]="48"></mat-spinner>
+      </div>
+      <div *ngIf="!this.loading">
+        <button [disabled]="unlockForm.invalid" color="primary" extended mat-fab type="submit">Account freischalten
+        </button>
+      </div>
+    </div>
+  </form>
+  <p class="w-5/6 max-w-2xl text-center mb-4">Keine Email erhalten? Es kann einen Moment dauern, bis Sie die Email
+    erhalten. Prüfen Sie außerdem Ihren Spam-Ordner. Wenn Sie dennoch keine Email erhalten, können Sie über den unteren
+    Knopf erneut den Bestätigungscode anfordern.</p>
+  <div class="flex justify-center">
+    <div *ngIf="this.resent">
+      <mat-spinner [diameter]="48"></mat-spinner>
+    </div>
+    <div *ngIf="!this.resent">
+      <button (click)="resendCode()" color="primary" extended mat-fab>Bestätigungscode erneut senden</button>
+    </div>
+  </div>
+</div>

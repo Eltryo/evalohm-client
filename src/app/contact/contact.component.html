@@ -1,0 +1,39 @@
+<div class="flex flex-col items-center py-20">
+  <mat-card class="w-[30rem] h-fit flex items-center">
+    <mat-card-header class="text-3xl font-bold">
+      <mat-card-title>Kontakt-Formular</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="w-full">
+      <form (ngSubmit)="contact()" class="flex flex-col items-center my-4">
+        <mat-form-field class="w-10/12">
+          <mat-label>Art Ihrer Anfrage</mat-label>
+          <input [formControl]="contactForm.controls.subjectFormControl" id="subject" matInput name="subject" required>
+          <mat-error>Bitte geben Sie die Art ihrer Anfrage an!</mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-10/12 mt-4">
+          <mat-label>Ihre Nachricht</mat-label>
+          <textarea [formControl]="contactForm.controls.messageFormControl" id="text" matInput name="text"
+                    required></textarea>
+          <mat-error>Bitte beschreiben sie ihr Anliegen!</mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-10/12 mt-4">
+          <mat-label>Wie können wir Sie erreichen</mat-label>
+          <textarea [formControl]="contactForm.controls.contactDataFormControl" id="contactData" matInput
+                    name="contactData" required></textarea>
+          <mat-error>Bitte geben Sie eine Kontaktmöglichkeit an!</mat-error>
+        </mat-form-field>
+        <div class="flex justify-evenly w-full mt-4 pb-4">
+          <button color="primary" extended mat-fab routerLink="/">Zurück</button>
+          <div *ngIf="this.loading">
+            <mat-spinner [diameter]="48"></mat-spinner>
+          </div>
+          <div *ngIf="!this.loading">
+            <button [disabled]="contactForm.invalid || this.loading" color="primary" extended mat-fab type="submit">
+              Absenden
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
